@@ -1,0 +1,27 @@
+.app-row {
+    display: flex;
+    margin: 0 -20px;
+
+    @media only screen and (max-width: 991px) {
+        margin: 0 -10px;
+    }
+
+    @media only screen and (max-width: 767px) {
+        flex-direction: column;
+        margin: 0;
+    }
+}
+
+.app-col-4 {
+    width: calc(100% / 3);
+    padding: 0 20px;
+
+    @media only screen and (max-width: 991px) {
+        padding: 0 10px;
+    }
+
+    @media only screen and (max-width: 767px) {
+        width: 100%;
+        padding: 10px 0;
+    }
+}
