@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, number, array } from 'prop-types';
+import urlPropType from 'url-prop-type';
 
 // Components
 import { Tag } from '../../Assets/Tag';
@@ -48,6 +49,6 @@ Article.propTypes = {
   published: string.isRequired,
   likes: number.isRequired,
   comments: number.isRequired,
-  // image: 
+  image: urlPropType.isRequired,
   tags: array.isRequired
 };
