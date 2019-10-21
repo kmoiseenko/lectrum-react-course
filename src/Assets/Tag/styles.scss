@@ -5,6 +5,7 @@
     border-radius: 5px;
     font-size: 15px;
     cursor: pointer;
+    text-transform: lowercase;
 
     &:hover {
         background-color: lighten(orange, 10%);

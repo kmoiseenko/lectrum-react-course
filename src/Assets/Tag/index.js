@@ -3,8 +3,8 @@ import React from 'react';
 // Styles
 import './styles.scss';
 
-export const Tag = () => {
+export const Tag = ({ source }) => {
   return (
-    <button className="app-tag">literature</button>
+    <button className="app-tag">{ source }</button>
   );
 };

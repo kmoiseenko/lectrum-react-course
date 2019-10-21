@@ -10,25 +10,28 @@ import { Share } from '../../Assets/Share';
 import './styles.scss';
 import '../../Assets/Common/control-counter-styles.scss';
 
-export const Article = () => {
+export const Article = ({ source }) => {
+  const { title, description, published, likes, comments, image, tags } = source;
+  const tagsJSX = tags.map((item, index) => <Tag key={ index } source={ item } />);
+
   return (
       <div className="app-article">
-        <div className="app-article__img"></div>
+        <div className="app-article__img" style={{ backgroundImage: `url(${image})` }}></div>
+
         <div className="app-article__container">
-          <div className="app-article__tag-container">
-            <Tag />
-            <Tag />
-          </div>
-          <h4 className="app-article__title">American writer of bad cowboy stories arrived in</h4>
-          <p className="app-article__desc">Volunteering to help people in need combined with travelling to faraway places is a new trend</p>
+          <div className="app-article__tag-container">{ tagsJSX }</div>
+          <h4 className="app-article__title">{ title }</h4>
+          <p className="app-article__desc">{ description }</p>
         </div>
+
         <div className="app-article__footer">
           <div className="app-article__container">
             <div className="app-article__date-and-social">
-              <div className="app-article__date">15.07.2017</div>
+              <div className="app-article__date">{ new Date(published).toLocaleDateString() }</div>
+
               <div className="app-article__social">
-                <CommentsCounter />
-                <LikesCounter />
+                <CommentsCounter counts= { comments } />
+                <LikesCounter counts={ likes } />
                 <Share />
               </div>
             </div>
