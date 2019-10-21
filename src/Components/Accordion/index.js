@@ -8,20 +8,21 @@ import './styles.scss';
 export const Accordion = (props) => {
   const { question, answer } = props.source
   const [index] = useState(props.index);
-  const [activeClassName, updateActiveClassName] = useState('');
 
   const customClassNames = cx({
-    active: activeClassName,
+    active: props.isActiveClassName,
     'app-accordion__head': 'app-accordion__head'
   });
 
-  const handleClick = () => {
-    updateActiveClassName(activeClassName === '' ? 'active' : '');
-  }
-
   return (
       <div className="app-accordion">
-        <div className={ customClassNames } onClick={ handleClick }>{ index + 1 }.{ question }</div>
+        <div
+          className={ customClassNames }
+          onClick={ () => props.handleClick(index, props.isActiveClassName) }
+        >
+          { index + 1 }.&nbsp;{ question }
+        </div>
+
         <div className="app-accordion__body">{ answer }</div>
       </div>
   );
