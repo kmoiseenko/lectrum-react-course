@@ -1,4 +1,5 @@
 import React from 'react';
+import { string, number, array } from 'prop-types';
 
 // Components
 import { Tag } from '../../Assets/Tag';
@@ -10,7 +11,7 @@ import { Share } from '../../Assets/Share';
 import './styles.scss';
 import '../../Assets/Common/control-counter-styles.scss';
 
-export const Article = ({ source }) => {
+export const Article = (source) => {
   const { title, description, published, likes, comments, image, tags } = source;
   const tagsJSX = tags.map((item, index) => <Tag key={ index } source={ item } />);
 
@@ -39,4 +40,14 @@ export const Article = ({ source }) => {
         </div>
       </div>
   );
+};
+
+Article.propTypes = {
+  title: string.isRequired,
+  description: string.isRequired,
+  published: string.isRequired,
+  likes: number.isRequired,
+  comments: number.isRequired,
+  // image: 
+  tags: array.isRequired
 };

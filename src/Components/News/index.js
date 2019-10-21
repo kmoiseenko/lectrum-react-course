@@ -15,13 +15,37 @@ export const News = () => {
   return (
     <div className="app-row">
       <div className="app-col-4">
-        <Article source={ item } />
+        <Article 
+          title={ item.title }
+          description={ item.description }
+          published={ item.published }
+          likes={ item.likes }
+          comments={ item.comments }
+          image={ item.image }
+          tags={ item.tags }
+        />
       </div>
       <div className="app-col-4">
-        <Article source={ item } />
+        <Article 
+          title={ item.title }
+          description={ item.description }
+          published={ item.published }
+          likes={ item.likes }
+          comments={ item.comments }
+          image={ item.image }
+          tags={ item.tags }
+        />
       </div>
       <div className="app-col-4">
-        <Article source={ item } />
+        <Article 
+          title={ item.title }
+          description={ item.description }
+          published={ item.published }
+          likes={ item.likes }
+          comments={ item.comments }
+          image={ item.image }
+          tags={ item.tags }
+        />
       </div>
     </div>
   );

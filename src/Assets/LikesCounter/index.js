@@ -1,4 +1,5 @@
 import React from 'react';
+import { number } from 'prop-types';
 
 export const LikesCounter = ({ counts }) => {
   return (
@@ -11,4 +12,8 @@ export const LikesCounter = ({ counts }) => {
         <div className="app-control-counter__count">{ counts }</div>
     </button>
   );
+};
+
+LikesCounter.propTypes = {
+  counts: number.isRequired
 };
