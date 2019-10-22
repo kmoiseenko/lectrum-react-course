@@ -23,7 +23,8 @@ export const Home = () => {
     return (
       <Accordion
         key={ index }
-        source={ item }
+        question={ item.question }
+        answer={ item.answer }
         index={ index }
         handleClick={ handleClick }
         isActiveClassName = { activeIndex === index && isActiveClassName ? isActiveClassName : '' }

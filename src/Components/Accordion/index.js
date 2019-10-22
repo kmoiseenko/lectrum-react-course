@@ -6,7 +6,7 @@ import { string, number } from 'prop-types';
 import './styles.scss';
 
 export const Accordion = (props) => {
-  const { question, answer } = props.source
+  const { question, answer } = props;
   const [index] = useState(props.index);
 
   const customClassNames = cx({
