@@ -6,47 +6,26 @@ import { Article } from '../Article';
 // Styles
 import './styles.scss';
 
-// Source
-import source from './source.json';
-
-export const News = () => {
-  const item = source.shift();
+export const News = ({ source }) => {
+  const articlesJSX = source.map((article, index) => {
+    return (
+      <div className="app-col-4" key={ index }>
+        <Article 
+          title={ article.title }
+          description={ article.description }
+          published={ article.published }
+          likes={ article.likes }
+          comments={ article.comments }
+          image={ article.image }
+          tags={ article.tags }
+        />
+      </div>
+    );
+  });
 
   return (
     <div className="app-row">
-      <div className="app-col-4">
-        <Article 
-          title={ item.title }
-          description={ item.description }
-          published={ item.published }
-          likes={ item.likes }
-          comments={ item.comments }
-          image={ item.image }
-          tags={ item.tags }
-        />
-      </div>
-      <div className="app-col-4">
-        <Article 
-          title={ item.title }
-          description={ item.description }
-          published={ item.published }
-          likes={ item.likes }
-          comments={ item.comments }
-          image={ item.image }
-          tags={ item.tags }
-        />
-      </div>
-      <div className="app-col-4">
-        <Article 
-          title={ item.title }
-          description={ item.description }
-          published={ item.published }
-          likes={ item.likes }
-          comments={ item.comments }
-          image={ item.image }
-          tags={ item.tags }
-        />
-      </div>
+      { articlesJSX }
     </div>
   );
 };
