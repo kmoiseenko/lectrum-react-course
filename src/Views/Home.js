@@ -12,10 +12,10 @@ import source from './accordion-source.json';
 
 export const Home = () => {
   const [activeIndex, setActiveIndex] = useState(null);
-  const [isActiveClassName, setIsActiveClassName] = useState('');
+  const [isActiveClassName, setIsActiveClassName] = useState(false);
 
   const handleClick = (index, className) => {
-    setIsActiveClassName(className === '' ? 'active' : '');
+    setIsActiveClassName(className ? false : true);
     setActiveIndex(index);
   }
 
@@ -27,7 +27,7 @@ export const Home = () => {
         answer={ item.answer }
         index={ index }
         handleClick={ handleClick }
-        isActiveClassName = { activeIndex === index && isActiveClassName ? isActiveClassName : '' }
+        isActiveClassName = { activeIndex === index && isActiveClassName ? isActiveClassName : false }
       />
     );
   });
