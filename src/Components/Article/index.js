@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, number, array } from 'prop-types';
+import { string, number } from 'prop-types';
 import urlPropType from 'url-prop-type';
 
 // Components
@@ -13,12 +13,14 @@ import './styles.scss';
 import '../../Assets/Common/control-counter-styles.scss';
 
 export const Article = (source) => {
-  const { title, description, published, likes, comments, image, tags } = source;
-  const tagsJSX = tags.map((item, index) => <Tag key={ index } source={ item } />);
+  const { title, description, created, likes, comments, poster, tags } = source;
+  const tagsJSX = tags.split(',').map((item, index) => {
+    return <Tag key={ index } source={ item } />
+  });
 
   return (
       <div className="app-article">
-        <div className="app-article__img" style={{ backgroundImage: `url(${image})` }}></div>
+        <div className="app-article__img" style={{ backgroundImage: `url(${poster})` }}></div>
 
         <div className="app-article__container">
           <div className="app-article__tag-container">{ tagsJSX }</div>
@@ -29,7 +31,7 @@ export const Article = (source) => {
         <div className="app-article__footer">
           <div className="app-article__container">
             <div className="app-article__date-and-social">
-              <div className="app-article__date">{ new Date(published).toLocaleDateString() }</div>
+              <div className="app-article__date">{ new Date(created).toLocaleDateString() }</div>
 
               <div className="app-article__social">
                 <CommentsCounter counts= { comments } />
@@ -46,9 +48,9 @@ export const Article = (source) => {
 Article.propTypes = {
   title: string.isRequired,
   description: string.isRequired,
-  published: string.isRequired,
+  created: number.isRequired,
   likes: number.isRequired,
   comments: number.isRequired,
-  image: urlPropType.isRequired,
-  tags: array.isRequired
+  poster: urlPropType.isRequired,
+  tags: string.isRequired
 };
