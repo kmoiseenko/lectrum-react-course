@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 export const LikesCounter = ({ counts }) => {
   const [count, setCounter] = useState(counts);
-  const [activeClassName, updateActiveClassName] = useState('');
+  const [activeClassName, updateActiveClassName] = useState(false);
   const customClassNames = cx({
     active: activeClassName,
     'app-control-counter': 'app-control-counter'
@@ -13,10 +13,10 @@ export const LikesCounter = ({ counts }) => {
   const handleClick = () => {
     if (activeClassName) {
       setCounter((prevCount) => prevCount - 1);
-      updateActiveClassName('');
+      updateActiveClassName(false);
     } else {
       setCounter((prevCount) => prevCount + 1);
-      updateActiveClassName('active');
+      updateActiveClassName(true);
     }
   };
 
