@@ -8,7 +8,7 @@ import { Share } from '../../Assets/Share';
 
 // Styles
 import './styles.scss';
-import '../../Assets/Common/control-counter-styles.scss';
+import '../../themes/control-counter-styles.scss';
 
 export const Article = () => {
   return (
