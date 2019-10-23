@@ -10,7 +10,7 @@ import { Share } from '../../Assets/Share';
 
 // Styles
 import './styles.scss';
-import '../../Assets/Common/control-counter-styles.scss';
+import '../../themes/common/control-counter-styles.scss';
 
 export const Article = (source) => {
   const { title, description, created, likes, comments, poster, tags } = source;
