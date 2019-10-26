@@ -1,3 +1,5 @@
 export const book = Object.freeze({
-    news: '/news'
+    news: '/news',
+    newsId: '/news/:id',
+    unknown: '/404'
 });
