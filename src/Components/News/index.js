@@ -21,15 +21,7 @@ export const News = () => {
   const getArticleJSX = (source) => {
     return (
       <div className="app-col-4" key={ source.objectId }>
-        <Article 
-          title={ source.title }
-          description={ source.description }
-          created={ source.created }
-          likes={ source.likes }
-          comments={ source.comments }
-          poster={ source.poster }
-          tags={ source.tags }
-        />
+        <Article { ...source } />
       </div>
     );
   }
