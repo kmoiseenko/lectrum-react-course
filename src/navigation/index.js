@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { News } from './../Components/News';
-import { Unknown } from './../Components/Unknown';
+import { Page404 } from './../Components/Page404';
 
 import { book } from './book';
 
@@ -19,9 +19,9 @@ export const Routes = () => (
             exact
         />
         <Route
-            component={ Unknown }
-            path={ book.unknown }
+            component={ Page404 }
+            path={ book.page404 }
         />
-        <Redirect to={ book.unknown } />
+        <Redirect to={ book.news } />
     </Switch>
 );
