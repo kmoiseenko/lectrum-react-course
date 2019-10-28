@@ -3,6 +3,7 @@ import { api } from './api';
 
 export const useNews = () => {
     const [posts, setPosts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const { lastUpdate, response } = localStorage;
@@ -26,7 +27,8 @@ export const useNews = () => {
     const getPostsAndSave = () => {
         (async() => {
             const posts = await api.getPosts();
-
+          
+            setIsLoading(false);
             localStorage.clear();
             localStorage.setItem('lastUpdate', new Date().getTime());
             localStorage.setItem('response', JSON.stringify(posts));
@@ -35,5 +37,5 @@ export const useNews = () => {
     }
 
 
-    return { posts };
+    return { posts, isLoading };
 }

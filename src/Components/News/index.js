@@ -13,9 +13,9 @@ import { book } from './../../navigation/book';
 import './styles.scss';
 
 export const News = () => {
+  const { posts, isLoading } = useNews();
   const { id } = useParams();
-  const { posts } = useNews();
-
+  
   const loaderJSX = <h1>Loading data...</h1>;
 
   const getArticleJSX = (source) => {
@@ -42,8 +42,8 @@ export const News = () => {
     return id ? findPostById() : collectAllPosts();
   }
 
-  const manageLoaderOrContent = () => {
-     return posts.length ? checkForId() : loaderJSX;
+  const manageLoaderOrPosts = () => {
+     return isLoading ? loaderJSX : articlesJSX;
   }
 
   return (
