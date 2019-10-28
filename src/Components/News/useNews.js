@@ -16,6 +16,7 @@ export const useNews = () => {
 
             if (diffMinutes <= minimumDiff) {
                 setPosts(JSON.parse(response));
+                setIsLoading(false);
             } else {
                 getPostsAndSave();
             }

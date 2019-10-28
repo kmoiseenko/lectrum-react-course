@@ -15,7 +15,7 @@ import './styles.scss';
 export const News = () => {
   const { posts, isLoading } = useNews();
   const { id } = useParams();
-  
+
   const loaderJSX = <h1>Loading data...</h1>;
 
   const getArticleJSX = (source) => {
@@ -43,12 +43,12 @@ export const News = () => {
   }
 
   const manageLoaderOrPosts = () => {
-     return isLoading ? loaderJSX : articlesJSX;
+     return isLoading ? loaderJSX : checkForId();
   }
 
   return (
     <div className="app-row">
-        { manageLoaderOrContent() }
+        { manageLoaderOrPosts() }
     </div>
   );
 };
