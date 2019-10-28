@@ -29,7 +29,7 @@ export const News = () => {
   const findPostById = () => {
     const postById = posts.find(({ objectId }) => objectId === id);
 
-    return postById ? getArticleJSX(postById) : history.push(book.unknown);
+    return postById ? getArticleJSX(postById) : history.push(book.page404);
   }
 
   const collectAllPosts = () => {
