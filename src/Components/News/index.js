@@ -8,9 +8,10 @@ import { useNews } from './useNews';
 import './styles.scss';
 
 export const News = () => {
-  const { posts } = useNews();
+  const { posts, isLoading } = useNews();
 
   const loaderJSX = <h1>Loading news...</h1>;
+
   const articlesJSX = posts.map((article) => {
     return (
       <div className="app-col-4" key={ article.objectId }>
@@ -28,7 +29,7 @@ export const News = () => {
   });
 
   const manageLoaderOrPosts = () => {
-     return posts.length ? articlesJSX : loaderJSX;
+     return isLoading ? loaderJSX : articlesJSX;
   }
 
   return (
