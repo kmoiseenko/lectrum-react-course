@@ -10,6 +10,7 @@ export const Routes = () => (
         <Route
             component={ News }
             path={ book.news }
+            exact
         />
     </Switch>
 );
