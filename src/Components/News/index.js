@@ -18,6 +18,11 @@ export const News = () => {
 
   const loaderJSX = <h1>Loading data...</h1>;
 
+  const handleLogOutClick = () => {
+    localStorage.setItem('isAuth', false);
+    history.replace(book.login);
+  }
+
   const getArticleJSX = (source) => {
     return (
       <div className="app-col-4" key={ source.objectId }>
@@ -29,7 +34,16 @@ export const News = () => {
   const findPostById = () => {
     const postById = posts.find(({ objectId }) => objectId === id);
 
-    return postById ? getArticleJSX(postById) : history.push(book.page404);
+    if (postById) {
+      return (
+        <>
+          <button onClick={ () => handleLogOutClick() }>Log out</button>
+          { getArticleJSX(postById) }
+        </>
+      );
+    } else {
+      history.push(book.page404);
+    }
   }
 
   const collectAllPosts = () => {

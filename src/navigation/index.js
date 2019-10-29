@@ -2,7 +2,9 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { News } from './../Components/News';
+import { PrivateRoute } from './../Components/PrivateRoute';
 import { Page404 } from './../Components/Page404';
+import { LoginPage } from './../Components/LoginPage';
 
 import { book } from './book';
 
@@ -14,13 +16,17 @@ export const Routes = () => (
             exact
         />
         <Route
-            component={ News }
+            component={ Page404 }
+            path={ book.page404 }
+        />
+        <PrivateRoute 
             path={ book.newsId }
+            children={ <News /> }
             exact
         />
         <Route
-            component={ Page404 }
-            path={ book.page404 }
+            component={ LoginPage }
+            path= { book.login }
         />
         <Redirect to={ book.news } />
     </Switch>
