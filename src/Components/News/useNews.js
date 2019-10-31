@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { api } from './api';
 
 export const useNews = () => {
     const [posts, setPosts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const { lastUpdate, response } = localStorage;
@@ -12,14 +12,14 @@ export const useNews = () => {
     }, []);
 
     const checkDiff = (lastUpdate, response) => {
-        const currentTime = new Date().getTime();
+        const currentTime = Date.now();
         const diff = new Date(currentTime) - new Date(parseInt(lastUpdate));
         const diffMinutes = diff / (1000 * 60);
         const minimumDiff = 10;
         
         if (diffMinutes <= minimumDiff) {
             setPosts(JSON.parse(response));
-            setIsLoading(false);
+            setLoading(false);
         } else {
             getPostsAndSave();
         }
@@ -29,7 +29,7 @@ export const useNews = () => {
         (async() => {
             const posts = await api.getPosts();
           
-            setIsLoading(false);
+            setLoading(false);
             localStorage.clear();
             localStorage.setItem('lastUpdate', new Date().getTime());
             localStorage.setItem('response', JSON.stringify(posts));
