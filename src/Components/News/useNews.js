@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { api } from './api';
 
 export const useNews = () => {
@@ -7,23 +7,23 @@ export const useNews = () => {
 
     useEffect(() => {
         const { lastUpdate, response } = localStorage;
+        
+        lastUpdate && response ? checkDiff(lastUpdate, response) : getPostsAndSave();
+    }, []);
 
-        if (lastUpdate && response) {
-            const currentTime = new Date().getTime();
-            const diff = new Date(currentTime) - new Date(+lastUpdate);
-            const diffMinutes = diff / (1000 * 60);
-            const minimumDiff = 10;
-
-            if (diffMinutes <= minimumDiff) {
-                setPosts(JSON.parse(response));
-                setIsLoading(false);
-            } else {
-                getPostsAndSave();
-            }
+    const checkDiff = (lastUpdate, response) => {
+        const currentTime = new Date().getTime();
+        const diff = new Date(currentTime) - new Date(parseInt(lastUpdate));
+        const diffMinutes = diff / (1000 * 60);
+        const minimumDiff = 10;
+        
+        if (diffMinutes <= minimumDiff) {
+            setPosts(JSON.parse(response));
+            setIsLoading(false);
         } else {
             getPostsAndSave();
         }
-    }, []);
+    }
 
     const getPostsAndSave = () => {
         (async() => {
