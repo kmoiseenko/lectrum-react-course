@@ -2,18 +2,42 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 
 export const StudentRegistration = () => {
-    const initialValues = {
-        firstName: '',
-        surname: '',
-        age: '',
-        email: '',
-        sex: '',
-        speciality: ''
+    const getInitValues = () => {
+        if (localStorage.student) {
+            return JSON.parse(localStorage.student);
+        } else {
+            return {
+                firstName: '',
+                surname: '',
+                age: '',
+                email: '',
+                sex: '',
+                speciality: ''
+            }
+        }
     }
+
+    const getTextValues = () => {
+        if (localStorage.student) {
+            return {
+                btn: 'Обновить данные',
+                successMessage: 'Данные обновленны'
+            }
+        } else {
+            return {
+                btn: 'Submit',
+                successMessage: 'Форма заполнена'
+            }
+        }
+    }
+
+    const initialValues = getInitValues();
+    const textValues = getTextValues();
 
     const handleFormSubmit = (values) => {
         console.log(values);
-        alert('Форма заполнена');
+        alert(textValues.successMessage);
+        localStorage.setItem('student', JSON.stringify(values));
     }
 
     return (
@@ -93,7 +117,7 @@ export const StudentRegistration = () => {
                         </Field>
                     </div>
 
-                    <button className="app-btn" type="submit">Submit</button>
+                    <button className="app-btn" type="submit">{ textValues.btn }</button>
                 </Form>
             </Formik>
         </section>
