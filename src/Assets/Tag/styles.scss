@@ -1,0 +1,17 @@
+.app-tag {
+    background: orange;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    text-transform: lowercase;
+
+    &:hover {
+        background-color: lighten(orange, 10%);
+    }
+
+    & + & {
+        margin-left: 10px;
+    }
+}
