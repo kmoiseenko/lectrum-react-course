@@ -1,6 +1,10 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 
+// Navifation
+import { history } from './../../navigation/history';
+import { book } from './../../navigation/book';
+
 export const StudentRegistration = () => {
     const getInitValues = () => {
         if (localStorage.student) {
@@ -36,8 +40,9 @@ export const StudentRegistration = () => {
 
     const handleFormSubmit = (values) => {
         console.log(values);
-        alert(textValues.successMessage);
         localStorage.setItem('student', JSON.stringify(values));
+        alert(textValues.successMessage);
+        history.replace(book.student);
     }
 
     return (

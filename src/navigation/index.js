@@ -1,9 +1,11 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
+// Components
 import { News } from './../Components/News';
 import { PrivateRoute } from './PrivateRoute';
 import { LoginPage } from './../Components/LoginPage';
+import { Student } from './../Components/Student';
 import { StudentRegistration } from './../Components/StudentRegistration';
 import { Page404 } from './../Components/Page404';
 
@@ -33,6 +35,12 @@ export const Routes = () => (
         <Route
             component={ StudentRegistration }
             path= { book.studentRegistration }
+            exact
+        />
+        <Route
+            component={ Student }
+            path= { book.student }
+            exact
         />
         <Redirect to={ book.news } />
     </Switch>
