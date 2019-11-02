@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import { book } from './../../navigation/book';
+import { book } from '../book';
 
 export const PrivateRoute = ({ children, ...rest }) => {
     return (
         <Route {...rest}>
             {
                 ({ location }) =>
-                !!localStorage.isAuth ? (
+                localStorage.isAuth === 'true' ? (
                     children
                 ) : (
                     <Redirect

@@ -3,35 +3,34 @@ import { api } from './api';
 
 export const useNews = () => {
     const [posts, setPosts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const { lastUpdate, response } = localStorage;
 
-        if (lastUpdate && response) {
-            const currentTime = new Date().getTime();
-            const diff = new Date(currentTime) - new Date(+lastUpdate);
-            const diffMinutes = diff / (1000 * 60);
-            const minimumDiff = 10;
+        lastUpdate && response ? calcDiff(lastUpdate, response) : getPostsAndSave();
+    }, []);
 
-            if (diffMinutes <= minimumDiff) {
-                setPosts(JSON.parse(response));
-                setIsLoading(false);
-            } else {
-                getPostsAndSave();
-            }
+    const calcDiff = (lastUpdate, response) => {
+        const currentTime = new Date().getTime();
+        const diff = new Date(currentTime) - new Date(parseInt(lastUpdate));
+        const diffMinutes = diff / (1000 * 60);
+        const minimumDiff = 10;
+
+        if (diffMinutes <= minimumDiff) {
+            setPosts(JSON.parse(response));
+            setLoading(false);
         } else {
             getPostsAndSave();
         }
-    }, []);
+    }
 
     const getPostsAndSave = () => {
-        (async() => {
+        (async () => {
             const posts = await api.getPosts();
-          
-            setIsLoading(false);
-            localStorage.clear();
-            localStorage.setItem('lastUpdate', new Date().getTime());
+
+            setLoading(false);
+            localStorage.setItem('lastUpdate', Date.now());
             localStorage.setItem('response', JSON.stringify(posts));
             setPosts(posts);
         })();

@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { News } from './../Components/News';
-import { PrivateRoute } from './../Components/PrivateRoute';
+import { PrivateRoute } from './PrivateRoute';
 import { Page404 } from './../Components/Page404';
 import { LoginPage } from './../Components/LoginPage';
 
@@ -21,9 +21,10 @@ export const Routes = () => (
         />
         <PrivateRoute 
             path={ book.newsId }
-            children={ <News /> }
             exact
-        />
+        >
+            <News />
+        </PrivateRoute>
         <Route
             component={ LoginPage }
             path= { book.login }
