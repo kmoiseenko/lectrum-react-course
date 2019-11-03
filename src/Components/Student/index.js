@@ -1,21 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // Navigation
 import { book } from './../../navigation/book';
 
 export const Student = () => {
-    const getData = () => {
-        if (localStorage.student) {
-            return JSON.parse(localStorage.student)
-        }
-    }
-
-    const data = getData();
+    const {
+        firstName,
+        surname,
+        age,
+        email,
+        sex,
+        speciality
+    } = useSelector((state) => state.student);
 
     const studentJSX = () => {
-        const { firstName, surname, age, email, sex, speciality } = data;
-
         return (
             <>
                 <h1>Student profile</h1>
@@ -39,7 +39,7 @@ export const Student = () => {
     }
 
     const pageContentJSX = () => {
-        return data ? studentJSX() : studentIsNotCreatedJSX();
+        return firstName ? studentJSX() : studentIsNotCreatedJSX();
     }
 
     return (

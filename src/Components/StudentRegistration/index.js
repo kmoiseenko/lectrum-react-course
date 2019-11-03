@@ -1,34 +1,24 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Navigation
 import { history } from './../../navigation/history';
 import { book } from './../../navigation/book';
 
+// Bus
+import { studentActions } from './../../bus/student/actions'
+
 // Styles
 import './styles.scss';
 
 export const StudentRegistration = () => {
-    const getInitValues = () => {
-        if (localStorage.student) {
-            return JSON.parse(localStorage.student);
-        } else {
-            return {
-                firstName: '',
-                surname: '',
-                age: '',
-                email: '',
-                sex: '',
-                speciality: '',
-                password: '',
-                confirmPassword: ''
-            }
-        }
-    }
+    const dispatch = useDispatch();
+    const initialValues = useSelector((state) => state.student);
 
     const getTextValues = () => {
-        if (localStorage.student) {
+        if (initialValues.firstName) {
             return {
                 btn: 'Обновить данные',
                 successMessage: 'Данные обновленны'
@@ -41,7 +31,6 @@ export const StudentRegistration = () => {
         }
     }
 
-    const initialValues = getInitValues();
     const textValues = getTextValues();
     const { formErrorRequired,
             formErrorAge,
@@ -66,8 +55,7 @@ export const StudentRegistration = () => {
     };
 
     const handleFormSubmit = (values) => {
-        console.log(values);
-        localStorage.setItem('student', JSON.stringify(values));
+        dispatch(studentActions.setStudent(values));
         alert(textValues.successMessage);
         history.replace(book.student);
     }

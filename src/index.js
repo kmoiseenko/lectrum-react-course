@@ -1,9 +1,7 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import { Routes } from './navigation';
-import { history } from './navigation/history';
+import { App } from './App';
 
 // Styles
 import './index.scss';
@@ -11,9 +9,7 @@ import './index.scss';
 ReactDOM.render(
     <div className="app">
         <div className="app-container">
-            <Router history={ history }>
-                <Routes />
-            </Router>
+            <App />
         </div>
     </div>
 , document.getElementById('root'));
