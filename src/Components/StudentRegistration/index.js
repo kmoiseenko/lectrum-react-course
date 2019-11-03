@@ -105,7 +105,7 @@ export const StudentRegistration = () => {
                             
                             <div>
                                 <label 
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.surname && errors.surname ? 'error' : null }
                                     htmlFor="surname"
                                 >
                                     Surname
@@ -113,7 +113,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="text"
                                     id="surname"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.surname && errors.surname ? 'error' : null }
                                     name="surname"
                                     placeholder="Enter your surname"
                                     validate={ validateSimpleFields }
@@ -123,7 +123,7 @@ export const StudentRegistration = () => {
 
                             <div>
                                 <label
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.age && errors.age ? 'error' : null }
                                     htmlFor="age"
                                 >
                                     Age
@@ -131,7 +131,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="number"
                                     id="age"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.age && errors.age ? 'error' : null }
                                     name="age"
                                     placeholder="Enter your age"
                                     validate={ validateAgeField }
@@ -141,7 +141,7 @@ export const StudentRegistration = () => {
 
                             <div>
                                 <label
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.email && errors.email ? 'error' : null }
                                     htmlFor="email"
                                 >
                                     Email
@@ -149,7 +149,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="email"
                                     id="email"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.email && errors.email ? 'error' : null }
                                     name="email"
                                     placeholder="Enter your Email"
                                     validate={ validateEmailField }
@@ -159,7 +159,7 @@ export const StudentRegistration = () => {
 
                             <div>
                                 <label
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.sex && errors.sex ? 'error' : null }
                                 >
                                     Choose your sex
                                 </label>
@@ -167,7 +167,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="radio"
                                     id="male"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.sex && errors.sex ? 'error' : null }
                                     name="sex"
                                     value="Male"
                                     validate={ validateSimpleFields }
@@ -176,7 +176,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="radio"
                                     id="female"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.sex && errors.sex ? 'error' : null }
                                     name="sex"
                                     value="Female"
                                     validate={ validateSimpleFields }
@@ -186,7 +186,7 @@ export const StudentRegistration = () => {
 
                             <div>
                                 <label
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.speciality && errors.speciality ? 'error' : null }
                                     htmlFor="speciality"
                                 >
                                     Choose your speciality
@@ -195,7 +195,7 @@ export const StudentRegistration = () => {
                                     as="select"
                                     name="speciality"
                                     id="speciality"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.speciality && errors.speciality ? 'error' : null }
                                     validate={ validateSimpleFields }
                                 >
                                     <option value="">Choose your speciality</option>
