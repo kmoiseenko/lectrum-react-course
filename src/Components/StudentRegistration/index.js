@@ -1,7 +1,8 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-// Navifation
+// Navigation
 import { history } from './../../navigation/history';
 import { book } from './../../navigation/book';
 
@@ -44,7 +45,12 @@ export const StudentRegistration = () => {
         required: 'This field is required',
         age: 'Age must be more then 6 and less then 60',
         email: 'This is not a valid email'
-    }
+    };
+    const { designer, developer, writer } =  {
+        designer: 'designer',
+        developer: 'developer',
+        writer: 'writer'
+    };
 
     const handleFormSubmit = (values) => {
         console.log(values);
@@ -53,25 +59,27 @@ export const StudentRegistration = () => {
         history.replace(book.student);
     }
 
-    const validateSimpleFields = (value) => {
-        return !value ? formErrorMessages.required : null;
-    }
-
-    const validateAgeField = (value) => {
-        if(value) {
-            return value > 6 && value < 60 ? null : formErrorMessages.age;
-        }
-    }
-
-    const validateEmailField = (value) => {
-        let re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
-
-        if(value) {
-            return re.test(value) ? null : formErrorMessages.email;
-        } else {
-            return formErrorMessages.required;
-        }
-    }
+    const studentSchema = Yup.object().shape({
+        firstName: Yup.string()
+            .required(formErrorMessages.required),
+        surname: Yup.string()
+            .required(formErrorMessages.required),
+        age: Yup.number()
+            .min(6, formErrorMessages.age)
+            .max(60, formErrorMessages.age),
+        email: Yup.string()
+            .email(formErrorMessages.email)
+            .required(formErrorMessages.required),
+        sex: Yup.string()
+            .required(formErrorMessages.required),
+        speciality: Yup.string()
+            .oneOf([
+                designer,
+                developer,
+                writer
+            ])
+            .required(formErrorMessages.required)
+      });
 
     return (
         <section>
@@ -80,6 +88,7 @@ export const StudentRegistration = () => {
             <Formik
                 initialValues={ initialValues }
                 onSubmit={ handleFormSubmit }
+                validationSchema={ studentSchema }
             >
                 {(props) => {
                     const { errors, touched } = props;
@@ -98,14 +107,13 @@ export const StudentRegistration = () => {
                                     className={ touched.firstName && errors.firstName ? 'error' : null }
                                     name="firstName"
                                     placeholder="Enter your first name"
-                                    validate={ validateSimpleFields }
                                 />
                                 <ErrorMessage name="firstName" />
                             </div>
                             
                             <div>
                                 <label 
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.surname && errors.surname ? 'error' : null }
                                     htmlFor="surname"
                                 >
                                     Surname
@@ -113,17 +121,16 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="text"
                                     id="surname"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.surname && errors.surname ? 'error' : null }
                                     name="surname"
                                     placeholder="Enter your surname"
-                                    validate={ validateSimpleFields }
                                 />
                                 <ErrorMessage name="surname" />
                             </div>
 
                             <div>
                                 <label
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.age && errors.age ? 'error' : null }
                                     htmlFor="age"
                                 >
                                     Age
@@ -131,17 +138,16 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="number"
                                     id="age"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.age && errors.age ? 'error' : null }
                                     name="age"
                                     placeholder="Enter your age"
-                                    validate={ validateAgeField }
                                 />
                                 <ErrorMessage name="age" />
                             </div>
 
                             <div>
                                 <label
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.email && errors.email ? 'error' : null }
                                     htmlFor="email"
                                 >
                                     Email
@@ -149,17 +155,16 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="email"
                                     id="email"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.email && errors.email ? 'error' : null }
                                     name="email"
-                                    placeholder="Enter your Email"
-                                    validate={ validateEmailField }
+                                    placeholder="Enter your email"
                                 />
                                 <ErrorMessage name="email" />
                             </div>
 
                             <div>
                                 <label
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.sex && errors.sex ? 'error' : null }
                                 >
                                     Choose your sex
                                 </label>
@@ -167,26 +172,24 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="radio"
                                     id="male"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.sex && errors.sex ? 'error' : null }
                                     name="sex"
                                     value="Male"
-                                    validate={ validateSimpleFields }
                                 />
                                 <label htmlFor="female">Female</label>
                                 <Field
                                     type="radio"
                                     id="female"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.sex && errors.sex ? 'error' : null }
                                     name="sex"
                                     value="Female"
-                                    validate={ validateSimpleFields }
                                 />
                                 <ErrorMessage name="sex" />
                             </div>
 
                             <div>
                                 <label
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ touched.speciality && errors.speciality ? 'error' : null }
                                     htmlFor="speciality"
                                 >
                                     Choose your speciality
@@ -195,13 +198,12 @@ export const StudentRegistration = () => {
                                     as="select"
                                     name="speciality"
                                     id="speciality"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
-                                    validate={ validateSimpleFields }
+                                    className={ touched.speciality && errors.speciality ? 'error' : null }
                                 >
                                     <option value="">Choose your speciality</option>
-                                    <option value="designer">Designer</option>
-                                    <option value="developer">Developer</option>
-                                    <option value="writer">Writer</option>
+                                    <option value={ designer }>{ designer }</option>
+                                    <option value={ developer }>{ developer }</option>
+                                    <option value={ writer }>{ writer }</option>
                                 </Field>
                                 <ErrorMessage name="speciality" />
                             </div>
