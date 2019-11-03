@@ -20,7 +20,9 @@ export const StudentRegistration = () => {
                 age: '',
                 email: '',
                 sex: '',
-                speciality: ''
+                speciality: '',
+                password: '',
+                confirmPassword: ''
             }
         }
     }
@@ -41,11 +43,22 @@ export const StudentRegistration = () => {
 
     const initialValues = getInitValues();
     const textValues = getTextValues();
-    const formErrorMessages = {
-        required: 'This field is required',
-        age: 'Age must be more then 6 and less then 60',
-        email: 'This is not a valid email'
-    };
+    const { formErrorRequired,
+            formErrorAge,
+            formErrorEmail, 
+            formErrorPasswordLength, 
+            formErrorPasswordDigitsLength,
+            formErrorPasswordLettersLength ,
+            formErrorPasswordsMustMacth
+        } = {
+            formErrorRequired: 'This field is required',
+            formErrorAge: 'Age must be more then 6 and less then 60',
+            formErrorEmail: 'This is not a valid email',
+            formErrorPasswordLength: 'Password must have at least 10 symbols',
+            formErrorPasswordDigitsLength: 'Password must have at least 3 digits',
+            formErrorPasswordLettersLength: 'Password must have letters too',
+            formErrorPasswordsMustMacth: 'Passwords must match'
+        };
     const { designer, developer, writer } =  {
         designer: 'designer',
         developer: 'developer',
@@ -61,25 +74,47 @@ export const StudentRegistration = () => {
 
     const studentSchema = Yup.object().shape({
         firstName: Yup.string()
-            .required(formErrorMessages.required),
+            .required(formErrorRequired),
         surname: Yup.string()
-            .required(formErrorMessages.required),
+            .required(formErrorRequired),
         age: Yup.number()
-            .min(6, formErrorMessages.age)
-            .max(60, formErrorMessages.age),
+            .min(6, formErrorAge)
+            .max(60, formErrorAge),
         email: Yup.string()
-            .email(formErrorMessages.email)
-            .required(formErrorMessages.required),
+            .email(formErrorEmail)
+            .required(formErrorRequired),
         sex: Yup.string()
-            .required(formErrorMessages.required),
+            .required(formErrorRequired),
         speciality: Yup.string()
             .oneOf([
                 designer,
                 developer,
                 writer
             ])
-            .required(formErrorMessages.required)
-      });
+            .required(formErrorRequired),
+        password: Yup.string()
+            .required(formErrorRequired)
+            .min(10, formErrorPasswordLength)
+            .test('passwordDigitCheck', formErrorPasswordDigitsLength, (item) => {
+                if (item) {
+                    return item.replace(/[^0-9]/g, '').length >= 3 ? true : false;
+                }
+            })
+            .test('passwordLettersCheck', formErrorPasswordLettersLength, (item) => {
+                if (item) {
+                    return item.replace(/[^A-Za-z]/g, '').length ? true : false;
+                }
+            }),
+        confirmPassword: Yup.string()
+            .required(formErrorRequired)
+            .oneOf([
+                Yup.ref('password')
+            ], formErrorPasswordsMustMacth)
+    });
+
+    const isErrorClassName = (touched, errors, fieldName) => {
+        return touched[fieldName] && errors[fieldName] ? 'error' : null
+    }
 
     return (
         <section>
@@ -96,7 +131,7 @@ export const StudentRegistration = () => {
                         <Form>
                             <div>
                                 <label
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'firstName') }
                                     htmlFor="firstName"
                                 >
                                     First name
@@ -104,7 +139,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="text"
                                     id="firstName"
-                                    className={ touched.firstName && errors.firstName ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'firstName') }
                                     name="firstName"
                                     placeholder="Enter your first name"
                                 />
@@ -113,7 +148,7 @@ export const StudentRegistration = () => {
                             
                             <div>
                                 <label 
-                                    className={ touched.surname && errors.surname ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'surname') }
                                     htmlFor="surname"
                                 >
                                     Surname
@@ -121,7 +156,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="text"
                                     id="surname"
-                                    className={ touched.surname && errors.surname ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'surname') }
                                     name="surname"
                                     placeholder="Enter your surname"
                                 />
@@ -130,7 +165,7 @@ export const StudentRegistration = () => {
 
                             <div>
                                 <label
-                                    className={ touched.age && errors.age ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'age') }
                                     htmlFor="age"
                                 >
                                     Age
@@ -138,7 +173,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="number"
                                     id="age"
-                                    className={ touched.age && errors.age ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'age') }
                                     name="age"
                                     placeholder="Enter your age"
                                 />
@@ -147,7 +182,7 @@ export const StudentRegistration = () => {
 
                             <div>
                                 <label
-                                    className={ touched.email && errors.email ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'email') }
                                     htmlFor="email"
                                 >
                                     Email
@@ -155,7 +190,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="email"
                                     id="email"
-                                    className={ touched.email && errors.email ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'email') }
                                     name="email"
                                     placeholder="Enter your email"
                                 />
@@ -164,7 +199,7 @@ export const StudentRegistration = () => {
 
                             <div>
                                 <label
-                                    className={ touched.sex && errors.sex ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'sex') }
                                 >
                                     Choose your sex
                                 </label>
@@ -172,7 +207,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="radio"
                                     id="male"
-                                    className={ touched.sex && errors.sex ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'sex') }
                                     name="sex"
                                     value="Male"
                                 />
@@ -180,7 +215,7 @@ export const StudentRegistration = () => {
                                 <Field
                                     type="radio"
                                     id="female"
-                                    className={ touched.sex && errors.sex ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'sex') }
                                     name="sex"
                                     value="Female"
                                 />
@@ -189,7 +224,7 @@ export const StudentRegistration = () => {
 
                             <div>
                                 <label
-                                    className={ touched.speciality && errors.speciality ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'speciality') }
                                     htmlFor="speciality"
                                 >
                                     Choose your speciality
@@ -198,7 +233,7 @@ export const StudentRegistration = () => {
                                     as="select"
                                     name="speciality"
                                     id="speciality"
-                                    className={ touched.speciality && errors.speciality ? 'error' : null }
+                                    className={ isErrorClassName(touched, errors, 'speciality') }
                                 >
                                     <option value="">Choose your speciality</option>
                                     <option value={ designer }>{ designer }</option>
@@ -206,6 +241,40 @@ export const StudentRegistration = () => {
                                     <option value={ writer }>{ writer }</option>
                                 </Field>
                                 <ErrorMessage name="speciality" />
+                            </div>
+
+                            <div>
+                                <label
+                                    className={ isErrorClassName(touched, errors, 'password') }
+                                    htmlFor="password"
+                                >
+                                    Password
+                                </label>
+                                <Field
+                                    type="password"
+                                    id="password"
+                                    className={ isErrorClassName(touched, errors, 'password') }
+                                    name="password"
+                                    placeholder="Enter your password"
+                                />
+                                <ErrorMessage name="password" />
+                            </div>
+
+                            <div>
+                                <label
+                                    className={ isErrorClassName(touched, errors, 'confirmPassword') }
+                                    htmlFor="confirmPassword"
+                                >
+                                    Confirm your password
+                                </label>
+                                <Field
+                                    type="password"
+                                    id="confirmPassword"
+                                    className={ isErrorClassName(touched, errors, 'confirmPassword') }
+                                    name="confirmPassword"
+                                    placeholder="Confirm your password"
+                                />
+                                <ErrorMessage name="confirmPassword" />
                             </div>
 
                             <button className="app-btn" type="submit">{ textValues.btn }</button>
