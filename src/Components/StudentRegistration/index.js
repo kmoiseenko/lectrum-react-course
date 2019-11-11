@@ -35,7 +35,7 @@ export const StudentRegistration = () => {
     const handleFormSubmit = (values) => {
         dispatch(studentActions.setStudent(values));
         setFormFilled(true);
-        // history.replace(book.student);
+        history.replace(book.student);
     }
 
     const isErrorClassName = (touched, errors, fieldName) => {
