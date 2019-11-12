@@ -1,6 +1,9 @@
 import * as Yup from 'yup';
 
-const { formErrorRequired,
+const { 
+    formErrorRequired,
+    formErrorName,
+    formErrorSurname,
     formErrorAge,
     formErrorEmail, 
     formErrorPasswordLength, 
@@ -9,6 +12,8 @@ const { formErrorRequired,
     formErrorPasswordsMustMacth
 } = {
     formErrorRequired: 'This field is required',
+    formErrorName: 'This filed length must be more then 2 and less then 40',
+    formErrorSurname: 'This field length must be more then 2 and less then 40',
     formErrorAge: 'Age must be more then 6 and less then 60',
     formErrorEmail: 'This is not a valid email',
     formErrorPasswordLength: 'Password must have at least 10 symbols',
@@ -30,9 +35,13 @@ export const sex = {
 
 export const studentSchema = Yup.object().shape({
     firstName: Yup.string()
-        .required(formErrorRequired),
+        .required(formErrorRequired)
+        .min(2, formErrorName)
+        .max(40, formErrorName),
     surname: Yup.string()
-        .required(formErrorRequired),
+        .required(formErrorRequired)
+        .min(2, formErrorSurname)
+        .max(40, formErrorSurname),
     age: Yup.number()
         .min(6, formErrorAge)
         .max(60, formErrorAge),

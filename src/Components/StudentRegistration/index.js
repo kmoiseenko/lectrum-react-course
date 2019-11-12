@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
+import classNames from 'classnames';
 
 // Navigation
 import { history } from './../../navigation/history';
@@ -39,10 +40,10 @@ export const StudentRegistration = () => {
     }
 
     const isErrorClassName = (touched, errors, fieldName) => {
-        return touched[fieldName] && errors[fieldName] ? 'error' : null;
+        return classNames({ error: touched[fieldName] && errors[fieldName] });
     }
 
-    const test = () => {
+    const manageMessageOfForm = () => {
         if (isFormFilled) {
             return successMessage;
         } else {
@@ -217,7 +218,7 @@ export const StudentRegistration = () => {
         <section>
             <>
                 <h1>This is student registration form</h1>
-                { test() }
+                { manageMessageOfForm() }
             </>
         </section>
     )
