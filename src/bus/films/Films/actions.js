@@ -3,52 +3,52 @@ import { types } from './types';
 
 import { api } from './../../../api';
 
-export const peopleActions = Object.freeze({
+export const filmsActions = Object.freeze({
     // Sync
     startFetching: () => {
         return {
-            type: types.PEOPLE_START_FETCHING,
+            type: types.FILMS_START_FETCHING,
         }
     },
     stopFetching: () => {
         return {
-            type: types.PEOPLE_STOP_FETCHING,
+            type: types.FILMS_STOP_FETCHING,
         }
     },
     fill: (payload) => {
         return {
-            type: types.PEOPLE_FILL,
+            type: types.FILMS_FILL,
             payload
         }
     },
     setFetchingError: (error) => {
         return {
-            type: types.PEOPLE_SET_FETCHING_ERROR,
+            type: types.FILMS_SET_FETCHING_ERROR,
             error: true,
             payload: error
         }
     },
     // Async
-    peopleFetchAsync: () => async (dispatch) => {
+    filmsFetchAsync: () => async (dispatch) => {
         dispatch({
-            type: types.PEOPLE_FETCH_ASYNC
+            type: types.FILMS_FETCH_ASYNC
         });
-        
-        dispatch(peopleActions.startFetching());
-        const response = await api.people.fetch();
 
+        dispatch(filmsActions.startFetching());
+        const response = await api.films.fetch();
+        
         if (response.status === 200) {
             const { results } = await response.json();
 
-            dispatch(peopleActions.fill(results));
+            dispatch(filmsActions.fill(results));
         } else {
             const error = {
                 status: response.status
             };
 
-            dispatch(peopleActions.setFetchingError(error));
+            dispatch(filmsActions.setFetchingError(error));
         }
 
-        dispatch(peopleActions.stopFetching());
+        dispatch(filmsActions.stopFetching());
     }
 });

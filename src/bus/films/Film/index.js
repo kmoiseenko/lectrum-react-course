@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { usePersonFetch } from './hooks/usePersonFetch';
+import { useFilmFetch } from './hooks/useFilmFetch';
 
-export const Person = () => {
-    const { isFetching, data, error } = usePersonFetch();
+export const Film = () => {
+    const { isFetching, data, error } = useFilmFetch();
 
     const errorMessage = error.status === 404 && (
         <p>Not found!</p>
@@ -13,7 +13,7 @@ export const Person = () => {
         <p>Loading data from API...</p>
     );
     
-    const PersonJSX = () => {
+    const FilmJSX = () => {
         let result = [];
 
         for (let key in data) {
@@ -25,11 +25,11 @@ export const Person = () => {
         return result;
     }
 
-    const list = isFetching || PersonJSX();
+    const list = isFetching || FilmJSX();
 
     return (
         <>
-            <h1>Person</h1>
+            <h1>Film</h1>
             {errorMessage}
             {loader}
             {list}
