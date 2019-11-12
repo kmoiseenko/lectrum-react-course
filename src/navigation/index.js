@@ -7,6 +7,8 @@ import { PrivateRoute } from './PrivateRoute';
 import { LoginPage } from './../Components/LoginPage';
 import { Student } from './../Components/Student';
 import { StudentRegistration } from './../Components/StudentRegistration';
+import { People } from './../bus/people/People/index';
+import { Person } from './../bus/people/Person/index';
 import { Page404 } from './../Components/Page404';
 
 import { book } from './book';
@@ -33,13 +35,23 @@ export const Routes = () => (
             path= { book.login }
         />
         <Route
+            component={ Student }
+            path= { book.student }
+            exact
+        />
+        <Route
             component={ StudentRegistration }
             path= { book.studentRegistration }
             exact
         />
         <Route
-            component={ Student }
-            path= { book.student }
+            component={ People }
+            path= { book.people }
+            exact
+        />
+        <Route
+            component={ Person }
+            path= { book.person }
             exact
         />
         <Redirect to={ book.news } />
