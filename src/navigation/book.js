@@ -4,5 +4,9 @@ export const book = Object.freeze({
     login: '/login',
     student: '/student',
     studentRegistration: '/student/registration',
+    people: '/people',
+    person: '/people/:id',
+    films: '/films',
+    film: '/films/:id',
     page404: '/404'
 });

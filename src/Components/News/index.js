@@ -49,6 +49,7 @@ export const News = () => {
   }
 
   const collectAllPosts = () => {
+    debugger
     const allPostsJSX = posts.map((item) => getArticleJSX(item));
 
     return allPostsJSX;
