@@ -35,19 +35,28 @@ export const peopleActions = Object.freeze({
         });
         
         dispatch(peopleActions.startFetching());
-        const response = await api.people.fetch();
+        try {
+            const response = await api.people.fetch();
 
-        if (response.status === 200) {
-            const { results } = await response.json();
+            if (response.status === 200) {
+                try {
+                    const { results } = await response.json();
 
-            dispatch(peopleActions.fill(results));
-        } else {
-            const error = {
-                status: response.status
-            };
+                    dispatch(peopleActions.fill(results));
+                } catch (error) {
+                    throw new Error(error);
+                }
+            } else {
+                const error = {
+                    status: response.status
+                };
 
-            dispatch(peopleActions.setFetchingError(error));
+                dispatch(peopleActions.setFetchingError(error));
+            }
+        } catch(error) {
+            throw new Error(error);
         }
+        
 
         dispatch(peopleActions.stopFetching());
     }
