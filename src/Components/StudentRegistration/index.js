@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
@@ -19,19 +19,9 @@ import './styles.scss';
 export const StudentRegistration = () => {
     const dispatch = useDispatch();
     const initialValues = useSelector((state) => state.student);
-    const [successMessage, setSuccessMessage] = useState();
-    const [btnText, setBtnText] = useState();
+    const [successMessage] = useState('Форма заполнена');
+    const [btnText] = useState('Submit');
     const [isFormFilled, setFormFilled] = useState(false);
-
-    useEffect(() => {
-        if (initialValues.firstName) {
-            setSuccessMessage('Данные обновлены');
-            setBtnText('Обновить данные');
-        } else {
-            setSuccessMessage('Форма заполнена');
-            setBtnText('Submit');
-        }
-    }, [initialValues]);
 
     const handleFormSubmit = (values) => {
         dispatch(studentActions.setStudent(values));
@@ -39,15 +29,9 @@ export const StudentRegistration = () => {
         history.replace(book.student);
     }
 
-    const isErrorClassName = (touched, errors, fieldName) => {
-        return classNames({ error: touched[fieldName] && errors[fieldName] });
-    }
-
-    const manageMessageOfForm = () => {
-        if (isFormFilled) {
-            return successMessage;
-        } else {
-            return (
+    const formikJSX = () => {
+        return (
+            <div>
                 <Formik
                     initialValues={ initialValues }
                     onSubmit={ handleFormSubmit }
@@ -57,7 +41,7 @@ export const StudentRegistration = () => {
                         const { errors, touched } = props;
                         return (
                             <Form>
-                                <div>
+                                <div className="form-item">
                                     <label
                                         className={ isErrorClassName(touched, errors, 'firstName') }
                                         htmlFor="firstName"
@@ -74,7 +58,7 @@ export const StudentRegistration = () => {
                                     <ErrorMessage name="firstName" />
                                 </div>
                                 
-                                <div>
+                                <div className="form-item">
                                     <label 
                                         className={ isErrorClassName(touched, errors, 'surname') }
                                         htmlFor="surname"
@@ -91,7 +75,7 @@ export const StudentRegistration = () => {
                                     <ErrorMessage name="surname" />
                                 </div>
 
-                                <div>
+                                <div className="form-item">
                                     <label
                                         className={ isErrorClassName(touched, errors, 'age') }
                                         htmlFor="age"
@@ -108,7 +92,7 @@ export const StudentRegistration = () => {
                                     <ErrorMessage name="age" />
                                 </div>
 
-                                <div>
+                                <div className="form-item">
                                     <label
                                         className={ isErrorClassName(touched, errors, 'email') }
                                         htmlFor="email"
@@ -125,7 +109,7 @@ export const StudentRegistration = () => {
                                     <ErrorMessage name="email" />
                                 </div>
 
-                                <div>
+                                <div className="form-item">
                                     <label
                                         className={ isErrorClassName(touched, errors, 'sex') }
                                     >
@@ -150,7 +134,7 @@ export const StudentRegistration = () => {
                                     <ErrorMessage name="sex" />
                                 </div>
 
-                                <div>
+                                <div className="form-item">
                                     <label
                                         className={ isErrorClassName(touched, errors, 'speciality') }
                                         htmlFor="speciality"
@@ -171,7 +155,7 @@ export const StudentRegistration = () => {
                                     <ErrorMessage name="speciality" />
                                 </div>
 
-                                <div>
+                                <div className="form-item">
                                     <label
                                         className={ isErrorClassName(touched, errors, 'password') }
                                         htmlFor="password"
@@ -188,7 +172,7 @@ export const StudentRegistration = () => {
                                     <ErrorMessage name="password" />
                                 </div>
 
-                                <div>
+                                <div className="form-item">
                                     <label
                                         className={ isErrorClassName(touched, errors, 'confirmPassword') }
                                         htmlFor="confirmPassword"
@@ -205,21 +189,32 @@ export const StudentRegistration = () => {
                                     <ErrorMessage name="confirmPassword" />
                                 </div>
 
-                                <button className="app-btn" type="submit">{ btnText }</button>
+                                <button
+                                    className="app-btn form-btn"
+                                    type="submit"
+                                >
+                                    { btnText }
+                                </button>
                             </Form>
                         )
                     }}
                 </Formik>
-            );
-        }
+            </div>
+        );
+    }
+
+    const manageMessageOrForm = () => {
+        return isFormFilled ? successMessage : formikJSX();
+    }
+
+    const isErrorClassName = (touched, errors, fieldName) => {
+        return classNames({ error: touched[fieldName] && errors[fieldName] });
     }
 
     return (
         <section>
-            <>
-                <h1>This is student registration form</h1>
-                { manageMessageOfForm() }
-            </>
+            <h1>This is student registration form</h1>
+            { manageMessageOrForm() }
         </section>
     )
 }

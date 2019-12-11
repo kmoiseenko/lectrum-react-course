@@ -1,19 +1,19 @@
 import * as Yup from 'yup';
 
-const { 
+export const { 
     formErrorRequired,
     formErrorName,
     formErrorSurname,
     formErrorAge,
-    formErrorEmail, 
-    formErrorPasswordLength, 
+    formErrorEmail,
+    formErrorPasswordLength,
     formErrorPasswordDigitsLength,
-    formErrorPasswordLettersLength ,
+    formErrorPasswordLettersLength,
     formErrorPasswordsMustMacth
 } = {
     formErrorRequired: 'This field is required',
-    formErrorName: 'This filed length must be more then 2 and less then 40',
-    formErrorSurname: 'This field length must be more then 2 and less then 40',
+    formErrorName: 'Name filed length must be more then 2 and less then 40',
+    formErrorSurname: 'Surname field length must be more then 2 and less then 40',
     formErrorAge: 'Age must be more then 6 and less then 60',
     formErrorEmail: 'This is not a valid email',
     formErrorPasswordLength: 'Password must have at least 10 symbols',
@@ -31,20 +31,36 @@ export const jobs = {
 export const sex = {
     male: 'male',
     female: 'female'
-}
+};
+
+export const valueLength = {
+    firstNameMin: 2,
+    firstNameMax: 40,
+    surnameMin: 2,
+    surnameMax: 40,
+    ageMin: 6,
+    ageMax: 60,
+    passwordMin: 10,
+    passwordMinDigitLength: 3
+};
+
+export const passwordRegExp = {
+    general: new RegExp(/[^A-Za-z]/g),
+    digit: new RegExp(/[^0-9]/g)
+};
 
 export const studentSchema = Yup.object().shape({
     firstName: Yup.string()
         .required(formErrorRequired)
-        .min(2, formErrorName)
-        .max(40, formErrorName),
+        .min(valueLength.firstNameMin, formErrorName)
+        .max(valueLength.firstNameMax, formErrorName),
     surname: Yup.string()
         .required(formErrorRequired)
-        .min(2, formErrorSurname)
-        .max(40, formErrorSurname),
+        .min(valueLength.surnameMin, formErrorSurname)
+        .max(valueLength.surnameMax, formErrorSurname),
     age: Yup.number()
-        .min(6, formErrorAge)
-        .max(60, formErrorAge),
+        .min(valueLength.ageMin, formErrorAge)
+        .max(valueLength.ageMax, formErrorAge),
     email: Yup.string()
         .email(formErrorEmail)
         .required(formErrorRequired),
@@ -63,13 +79,13 @@ export const studentSchema = Yup.object().shape({
         .required(formErrorRequired),
     password: Yup.string()
         .required(formErrorRequired)
-        .min(10, formErrorPasswordLength)
+        .min(valueLength.passwordMin, formErrorPasswordLength)
         .test('passwordDigitCheck', formErrorPasswordDigitsLength, (item) => {
             if (item) {
-                return item.replace(/[^0-9]/g, '').length >= 3 ? true : false;
+                return item.replace(passwordRegExp.digit, '').length >= valueLength.passwordMinDigitLength ? true : false;
             }
         })
-        .matches(/[^A-Za-z]/g, formErrorPasswordLettersLength),
+        .matches(passwordRegExp.general, formErrorPasswordLettersLength),
     confirmPassword: Yup.string()
         .required(formErrorRequired)
         .oneOf([
