@@ -17,32 +17,36 @@ export const Student = () => {
 
     const studentJSX = () => {
         return (
-            <>
+            <section id="test__student-found">
                 <h1>Student profile</h1>
-                <p>Student first name: { firstName }</p>
-                <p>Student surname: { surname }</p>
-                <p>Student age: { age }</p>
-                <p>Student email: { email }</p>
-                <p>Student sex: { sex }</p>
-                <p>Student speciality: { speciality }</p>
-            </>
+                <ul id="test__student-info-list">
+                    <li><p>Student first name: {firstName}</p></li>
+                    <li><p>Student surname: {surname}</p></li>
+                    <li><p>Student age: {age}</p></li>
+                    <li><p>Student email: {email}</p></li>
+                    <li><p>Student sex: {sex}</p></li>
+                    <li><p>Student speciality: {speciality}</p></li>
+                </ul>
+            </section>
         )
     }
 
     const studentIsNotCreatedJSX = () => {
         return (
-            <p>
-                Студент еще не создан, вы можете создать студента по этому&nbsp;
-                <Link to={ book.studentRegistration}>адресу</Link>
-            </p>
+            <section id="test__student-not-found">
+                <p>
+                    Студент еще не создан, вы можете создать студента по этому&nbsp;
+                    <Link to={book.studentRegistration}>адресу</Link>
+                </p>
+            </section>
         )
     }
 
-    const pageContentJSX = () => {
+    const managePageContentJSX = () => {
         return firstName ? studentJSX() : studentIsNotCreatedJSX();
     }
 
     return (
-        pageContentJSX()
+        managePageContentJSX()
     )
 }
