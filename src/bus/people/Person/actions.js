@@ -35,20 +35,28 @@ export const personActions = Object.freeze({
         });
 
         dispatch(personActions.startFetching());
-        const response = await api.person.fetch(id);
-        
-        if (response.status === 200) {
-            const result = await response.json();
+        try {
+            const response = await api.person.fetch(id);
 
-            dispatch(personActions.fill(result));
-        } else {
-            const error = {
-                status: response.status
-            };
+            if (response.status === 200) {
+                try {
+                    const result = await response.json();
 
-            dispatch(personActions.setFetchingError(error));
+                    dispatch(personActions.fill(result));
+                } catch(error) {
+                    console.log(error);
+                }
+            } else {
+                const error = {
+                    status: response.status
+                };
+
+                dispatch(personActions.setFetchingError(error));
+            }
+
+            dispatch(personActions.stopFetching());
+        } catch(error) {
+            console.log(error);
         }
-
-        dispatch(personActions.stopFetching());
     }
 });

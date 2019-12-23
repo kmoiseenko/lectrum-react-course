@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Films actions fill 1`] = `
+Object {
+  "payload": undefined,
+  "type": "FILMS_FILL",
+}
+`;
+
+exports[`Films actions filmsFetchAsync 1`] = `[Function]`;
+
+exports[`Films actions setFetchingError 1`] = `
+Object {
+  "error": true,
+  "payload": undefined,
+  "type": "FILMS_SET_FETCHING_ERROR",
+}
+`;
+
+exports[`Films actions startFetching 1`] = `
+Object {
+  "type": "FILMS_START_FETCHING",
+}
+`;
+
+exports[`Films actions stopFetching 1`] = `
+Object {
+  "type": "FILMS_STOP_FETCHING",
+}
+`;
