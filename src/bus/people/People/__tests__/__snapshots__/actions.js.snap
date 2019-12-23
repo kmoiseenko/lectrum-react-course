@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`peopleActions fill 1`] = `
+Object {
+  "payload": undefined,
+  "type": "PEOPLE_FILL",
+}
+`;
+
+exports[`peopleActions peopleFetchAsync 1`] = `[Function]`;
+
+exports[`peopleActions setFetchingError 1`] = `
+Object {
+  "error": true,
+  "payload": undefined,
+  "type": "PEOPLE_SET_FETCHING_ERROR",
+}
+`;
+
+exports[`peopleActions startFetching 1`] = `
+Object {
+  "type": "PEOPLE_START_FETCHING",
+}
+`;
+
+exports[`peopleActions stopFetching 1`] = `
+Object {
+  "type": "PEOPLE_STOP_FETCHING",
+}
+`;

@@ -35,20 +35,28 @@ export const filmActions = Object.freeze({
         });
 
         dispatch(filmActions.startFetching());
-        const response = await api.film.fetch(id);
-        
-        if (response.status === 200) {
-            const result = await response.json();
+        try {
+            const response = await api.film.fetch(id);
 
-            dispatch(filmActions.fill(result));
-        } else {
-            const error = {
-                status: response.status
-            };
+            if (response.status === 200) {
+                try {
+                    const result = await response.json();
 
-            dispatch(filmActions.setFetchingError(error));
+                    dispatch(filmActions.fill(result));
+                } catch(error) {
+                    console.log(error);
+                }
+            } else {
+                const error = {
+                    status: response.status
+                };
+
+                dispatch(filmActions.setFetchingError(error));
+            }
+
+            dispatch(filmActions.stopFetching());
+        } catch(error) {
+            console.log(error)
         }
-
-        dispatch(filmActions.stopFetching());
     }
 });
