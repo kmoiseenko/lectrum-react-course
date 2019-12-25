@@ -12,7 +12,7 @@ const initialState = {
     confirmPassword: ''
 };
 
-export const studentReducer = ( state = initialState, { type, payload } ) => {
+export const studentReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case types.SET_STUDENT:
             return { ...state, ...payload };

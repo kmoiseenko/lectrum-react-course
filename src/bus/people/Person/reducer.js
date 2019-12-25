@@ -7,7 +7,7 @@ const initialState = {
     error: false
 };
 
-export const personReducer = ( state = initialState, { type, payload } ) => {
+export const personReducer = (state = initialState, { type, payload }) => {
     switch (type) {
         case types.PERSON_START_FETCHING:
             return { ...state, isFetching: true };
@@ -17,7 +17,7 @@ export const personReducer = ( state = initialState, { type, payload } ) => {
             return { ...state, error: payload };
         case types.PERSON_FILL:
             return { ...state, data: payload };
-    
+
         default:
             return state;
     }

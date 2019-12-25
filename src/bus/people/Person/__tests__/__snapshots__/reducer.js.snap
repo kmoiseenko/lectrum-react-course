@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Person reducer: Should handle PERSON_FILL action 1`] = `
+Object {
+  "data": undefined,
+  "error": false,
+  "isFetching": false,
+}
+`;
+
+exports[`Person reducer: Should handle PERSON_SET_FETCHING_ERROR action 1`] = `
+Object {
+  "data": Array [],
+  "error": undefined,
+  "isFetching": false,
+}
+`;
+
+exports[`Person reducer: Should handle PERSON_START_FETCHING action 1`] = `
+Object {
+  "data": Array [],
+  "error": false,
+  "isFetching": true,
+}
+`;
+
+exports[`Person reducer: Should handle PERSON_STOP_FETCHING action 1`] = `
+Object {
+  "data": Array [],
+  "error": false,
+  "isFetching": false,
+}
+`;
+
+exports[`Person reducer: Should return initial state by default 1`] = `
+Object {
+  "data": Array [],
+  "error": false,
+  "isFetching": false,
+}
+`;
